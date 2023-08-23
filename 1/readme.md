@@ -41,3 +41,4 @@ contract myContract
 ## 以下说法正确的有哪些
 * numbers是合约的第0个成员，所以合约的slot[0]存储numbers的length
 * numbers是合约的第0个成员，所以合约的slot[0...n]依次存储numbers[0...n]
+
