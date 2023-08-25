@@ -42,3 +42,49 @@ contract myContract
 * numbers是合约的第0个成员，所以合约的slot[0]存储numbers的length
 * numbers是合约的第0个成员，所以合约的slot[0...n]依次存储numbers[0...n]
 
+## Code
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.5.0;
+
+contract myContract
+{
+    bool public locked = true;
+    uint256 public ID = block.timestamp;
+    uint8 private flattening = 10;
+    uint8 private denomination = 255;
+    uint16 private awkwardness = uint16(block.timestamp);
+    bytes32[3] private data;
+    uint[] public numbers;
+
+    constructor(bytes32[3] memory _data) public {
+        data = _data;
+    }
+
+    function unlock(bytes16 _key) public {
+        require(_key == bytes16(data[2]));
+        locked = false;
+    }
+
+    function init() public {
+        numbers.push(1);
+        numbers.push(2);
+        uint[] storage myArray = numbers;
+        myArray[0] = 0;
+    }
+
+    function retract() public {
+        numbers.length--;
+    }
+
+    function revise(uint i, uint _content) public {
+        numbers[i] = _content;
+    }
+}
+```
+
+## 是否可以获得正确的_key来执行unlock？如何获取正确的_key？
+
+## init执行后，numbers的数据是什么？
+
+## 除了通过unlock可以设置locked=false外，时候还有其他方法，怎么执行？
