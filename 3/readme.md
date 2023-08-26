@@ -47,3 +47,11 @@ library LibString {
     }
 }
 ```
+
+## 关于evm的memory layout，说法正确的有哪些
+* memory的free memory pointer初始化是0x00
+* free memory pointer存储在保留slot 0x40
+* solidity总是存储新对象在free memory pointer位置，而且从不释放memory
+* dynamic array的length存储在array对象的第一个slot，后面就是elements
+* memory为各个元素保留uint256的存储空间，而不像storage，会根据元素大小组织layout
+* memory中，不能使用mapping，不能使用array的push和pop

@@ -36,3 +36,9 @@ contract Gatekeeper {
 * 部署合约交易的data就是部署合约的code，执行部署交易时，会存储到新计算的合约地址上
 * 部署交易执行时，先计算合约地址，再存储合约code，最后执行构造函数进行初始化
 * 以上说法都不正确
+
+## 关于合约创建，一下说法正确的有哪些
+* 创建合约交易的data是合约的creation code，而最终链上存储的是合约的runtime code
+* 创建合约的交易将执行新合约的creation code，return的就是合约的runtime code
+* 合约的构造函数在creation code，而不会存在于runtime code
+* 以上说法都正确
