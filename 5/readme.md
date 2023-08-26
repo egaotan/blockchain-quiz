@@ -42,3 +42,9 @@ contract Gatekeeper {
 * 创建合约的交易将执行新合约的creation code，return的就是合约的runtime code
 * 合约的构造函数在creation code，而不会存在于runtime code
 * 以上说法都正确
+
+## 关于创建合约的create op code
+* 有三个参数value，offset，和size，将memory的offset位置开始，size大小的数据作为新合约的creation code，并且发送value的eth到新合约地址
+* 计算新合约地址
+* creation code包含合约构造code，将会在新合约地址上被执行，code return的就是runtime code，会被存储到新合约地址的code上
+* create op最后将新合约地址push到stack
