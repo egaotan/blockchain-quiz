@@ -174,7 +174,14 @@ contract PuzzleWallet {
 ```
 
 ## 
-* 以上是合约升级的实现模版，使用proxy和delidatecall
+* 为什么要用代理合约？合约升级 & save gas
+* EIP1967规范了代理合约的slot存储，为什么要规范？[EIP1967](https://eips.ethereum.org/EIPS/eip-1967) 
+  * 可以从代理合约知道其真正的实现合约，这样才能获取到真正的ABI，方便合约交互 
+  * 浏览器展示、用户获取真正的实现合约 
+  * 有时候需要直接和实现合约交互而不是代理合约 
+  * 规范代理合约slot存储，防止被实现合约重写slot 
+  * 实现合约有时候需要知道是否被代理
+* 以上是合约升级的实现模版，使用proxy和delidatecall，EIP1967
 * proxy合约有变量，将会在delegatecall中被其他合约改写
 * 按照合约的存储布局，PuzzleWallet合约修改owner，其实就是修改PuzzleProxy的pendingAdmin，PuzzleWallet合约修改maxBalance，就是修改PuzzleProxy的admin。相反操作也是成立。
 * 
