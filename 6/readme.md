@@ -173,15 +173,25 @@ contract PuzzleWallet {
 }
 ```
 
-## 
-* 为什么要用代理合约？合约升级 & save gas
+以上合约PuzzleWallet可以作为PuzzleProxy的一个Implementation，PuzzleProxy也可以升级PuzzleWallet，这是可升级合约的实现模版。上面的这个实现模版是有bug的。
+
+## proxy合约的作用1 - 合约升级
+* 代理合约可以用来合约升级，升级合约就是更新其implementation
+* 以上是合约升级的实现模版，使用proxy和delidatecall，EIP1967
 * EIP1967规范了代理合约的slot存储，为什么要规范？[EIP1967](https://eips.ethereum.org/EIPS/eip-1967) 
   * 可以从代理合约知道其真正的实现合约，这样才能获取到真正的ABI，方便合约交互 
   * 浏览器展示、用户获取真正的实现合约 
   * 有时候需要直接和实现合约交互而不是代理合约 
   * 规范代理合约slot存储，防止被实现合约重写slot 
   * 实现合约有时候需要知道是否被代理
-* 以上是合约升级的实现模版，使用proxy和delidatecall，EIP1967
 * proxy合约有变量，将会在delegatecall中被其他合约改写
 * 按照合约的存储布局，PuzzleWallet合约修改owner，其实就是修改PuzzleProxy的pendingAdmin，PuzzleWallet合约修改maxBalance，就是修改PuzzleProxy的admin。相反操作也是成立。
-* 
+* 以上合约升级的实现是有bug的，如何attack？
+
+## proxy合约的作用2 - 账户抽象
+* 每个账户就是一个proxy，多个账户都有一个共同的implementation，用于账户抽象。
+
+## 代理合约reference
+[eip 1167](https://eips.ethereum.org/EIPS/eip-1167)
+[Deep dive into the Minimal Proxy contract](https://blog.openzeppelin.com/deep-dive-into-the-minimal-proxy-contract)
+[Minimal Proxy Compendium](https://banteg.xyz/posts/minimal-proxies/)
