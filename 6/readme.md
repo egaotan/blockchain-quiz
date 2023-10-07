@@ -190,6 +190,7 @@ contract PuzzleWallet {
 
 ## proxy合约的作用2 - 账户抽象
 * 每个账户就是一个proxy，多个账户都有一个共同的implementation，用于账户抽象。
+* proxy合约是一个EIP 1167规范合约，non-upgradable proxy
 
 ## 代理合约reference
 [eip 1167](https://eips.ethereum.org/EIPS/eip-1167)
